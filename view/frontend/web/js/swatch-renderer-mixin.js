@@ -97,7 +97,7 @@ define([
          */
         _getSelectedAttributes: function (original) { // Breeze fix: added original argument
 
-            if (typeof this.options.jsonConfig.defaultValues !== 'undefined') {
+            if (!_.isEmpty(this.options.jsonConfig.defaultValues)) {
                 return this.options.jsonConfig.defaultValues;
             }
             return original(); // Breeze fix: this._super() => original()
