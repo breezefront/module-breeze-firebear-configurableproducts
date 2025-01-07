@@ -4,5 +4,5 @@
 
 ```bash
 composer require swissup/module-breeze-firebear-configurableproducts
-bin/magento setup:upgrade --safe-mode=1
+bin/magento module:enable Swissup_BreezeFirebearConfigurableproducts
 ```
