@@ -51,7 +51,7 @@ define([
          * @returns {*}
          * @private
          */
-        _init: function (original) { // Breeze fix: added original argument
+        _init: function () {
             let element,
                 $widget = this;
             element = $(this.options.selectorProductPrice);
@@ -77,15 +77,15 @@ define([
                 this.options.renderSwatchOptionConfig.optionTooltipThumb = this.options.jsonConfig.attribute_prefix + 'option-tooltip-thumb';
                 this.options.renderSwatchOptionConfig.optionTooltipValue = this.options.jsonConfig.attribute_prefix + 'option-tooltip-value';
             }
-            original(); // Breeze fix: this._super() => original()
+            this._super();
             if (!$widget.inProductList) {
                 $widget.inProductList = $widget.options.jsonConfig.fbInProductList;
             }
             return this;
         },
 
-        _create: function (original) { // Breeze fix: added original argument
-            original(); // Breeze fix: this._super() => original()
+        _create: function () {
+            this._super();
             if (!this.inProductList) {
                 this.inProductList = this.options.jsonConfig.fbInProductList;
             }
@@ -95,12 +95,12 @@ define([
          * Get default options values settings with either URL query parameters
          * @private
          */
-        _getSelectedAttributes: function (original) { // Breeze fix: added original argument
+        _getSelectedAttributes: function () {
 
-            if (!_.isEmpty(this.options.jsonConfig.defaultValues)) {
+            if (!_.isEmpty(this.options.jsonConfig.defaultValues)) { // Breeze fix:
                 return this.options.jsonConfig.defaultValues;
             }
-            return original(); // Breeze fix: this._super() => original()
+            return this._super();
         },
 
         /**
@@ -108,9 +108,9 @@ define([
          *
          * @private
          */
-        _RenderControls: function (original) { // Breeze fix: added original argument
+        _RenderControls: function () {
             icpAbstract._loadCustomElements();
-            original(); // Breeze fix: this._super() => original()
+            this._super();
         },
 
         /**
@@ -118,7 +118,7 @@ define([
          * @param selectedAttributes
          * @private
          */
-        _EmulateSelected: function (original, selectedAttributes) { // Breeze fix: added original argument
+        _EmulateSelected: function (selectedAttributes) {
             let $widget = this,
                 countSelectedAttributes = Object.keys(selectedAttributes).length,
                 attributeNumber = 1;
@@ -233,7 +233,7 @@ define([
          * @param {jQuery} context
          * @param {Boolean} isInProductView
          */
-        updateBaseImage: function (original, images, context, isInProductView) { // Breeze fix: added original argument
+        updateBaseImage: function (images, context, isInProductView) {
             var justAnImage = images[0],
                 initialImages = this.options.mediaGalleryInitial,
                 imagesToUpdate,
@@ -273,7 +273,7 @@ define([
          * @param {Object} $widget
          * @private
          */
-        _OnClick: function (original, $this, $widget) { // Breeze fix: added original argument
+        _OnClick: function ($this, $widget) {
             /* Fix issue cannot add product to cart */
             var $parent = $this.parents('.' + $widget.options.classes.attributeClass),
                 $wrapper = $this.parents('.' + $widget.options.classes.attributeOptionsWrapper),
@@ -354,7 +354,7 @@ define([
                                         label.text(selectedLabel);
                                         $('input[name="super_attribute[' + item.id + ']"]').val(selectedOptionId);
                                         if (attributeId == item.id) {
-                                            $('.swatch-option[' + $widget.options.renderSwatchOptionConfig.optionId + '="' + selectedOptionId + '"]').addClass('selected'); // Breeze fix: added quotes
+                                            $('.swatch-option[' + $widget.options.renderSwatchOptionConfig.optionId + '=' + selectedOptionId + ']').addClass('selected');
                                         }
                                     }
                                 }
@@ -392,7 +392,7 @@ define([
                 }
                 return;
             } else if ($widget.element.parents($widget.options.selectorProduct)
-                .find(this.options.selectorProductPrice).data('magePriceBox') // Breeze fix: is(':data(mage-priceBox)') => data('magePriceBox')
+                .find(this.options.selectorProductPrice).is(':data(mage-priceBox)')
             ) {
                 if (updatePrice) {
                     $widget._UpdatePrice();
@@ -447,7 +447,7 @@ define([
                     this._setOpenGraph(configurableProductId, $widget);
                 }
                 if ($widget.element.parents($widget.options.selectorProduct)
-                    .find(this.options.selectorProductPrice).data('magePriceBox') // Breeze fix: is(':data(mage-priceBox)') => data('magePriceBox')
+                    .find(this.options.selectorProductPrice).is(':data(mage-priceBox)')
                 ) {
                     $widget._ReplaceDataParent(this);
                     // document.getElementsByName('product')[0].value = simpleProductId;
@@ -466,7 +466,7 @@ define([
          * @param {Object} $widget
          * @private
          */
-        _OnChange: function (original, $this, $widget) { // Breeze fix: added original argument
+        _OnChange: function ($this, $widget) {
             /* Fix issue cannot add product to cart */
             var $parent = $this.parents('.' + $widget.options.classes.attributeClass),
                 attributeId = $parent.attr($widget.options.renderSwatchOptionConfig.attributeId),
@@ -545,7 +545,7 @@ define([
                     this._setOpenGraph(configurableProductId, $widget);
                 }
                 if (!$widget.element.parents($widget.options.selectorProduct)
-                    .find(this.options.selectorProductPrice).data('magePriceBox') // Breeze fix: is(':data(mage-priceBox)') => data('magePriceBox')
+                    .find(this.options.selectorProductPrice).is(':data(mage-priceBox)')
                 ) {
                     $widget._ReplaceDataParent(this);
                     document.getElementsByName('product')[0].value = '';
@@ -569,7 +569,7 @@ define([
          * @returns {*}
          * @private
          */
-        _getAttributeCodeById: function (original, attributeId) { // Breeze fix: added original argument
+        _getAttributeCodeById: function (attributeId) {
             var attribute = this.options.jsonConfig.attributes[attributeId];
 
             return attribute ? attribute.code : attributeId;
@@ -734,8 +734,8 @@ define([
                 return;
             }
             $.each($widget.options.jsonConfig.attributes, function ($key, $item) {
-                if ($('.' + $item.code + ' option:checked').val() != 0 && $item.id != attributeId && $item.type == 'select') { // Breeze fix: selected => checked
-                    selectedAttributesForProducts[$item.id] = parseInt($('.' + $item.code + ' option:checked').val()); // Breeze fix: selected => checked
+                if ($('.' + $item.code + ' option:selected').val() != 0 && $item.id != attributeId && $item.type == 'select') {
+                    selectedAttributesForProducts[$item.id] = parseInt($('.' + $item.code + ' option:selected').val());
                 } else if (typeof ($('.' + $item.code).attr($widget.options.renderSwatchOptionConfig.optionSelected)) !== 'undefined') {
                     selectedAttributesForProducts[$item.id] = parseInt($('.' + $item.code).attr($widget.options.renderSwatchOptionConfig.optionSelected));
                 }
@@ -874,12 +874,12 @@ define([
                                     break;
                                 case "SELECT":
                                     if (el.multiple) {
-                                        $(el).find(":checked").each(function (index, selected) { // Breeze fix: selected => checked
+                                        $(el).find(":selected").each(function (index, selected) {
                                             customOptionsPrice.push(parseFloat($(selected).attr('price')));
                                         });
                                         break;
                                     } else {
-                                        var singleSelectPrice = $(el).find(":checked").attr('price'); // Breeze fix: selected => checked
+                                        var singleSelectPrice = $(el).find(":selected").attr('price');
                                         if (typeof (singleSelectPrice) !== 'undefined') {
                                             customOptionsPrice.push(parseFloat(singleSelectPrice));
                                         }
@@ -1023,5 +1023,5 @@ define([
         },
     };
 
-    $.mixin('SwatchRenderer', icpSwatchMixin); // Breeze fix: apply mixin
+    $.mixinSuper('SwatchRenderer', icpSwatchMixin); // Breeze fix: apply mixin
 });
