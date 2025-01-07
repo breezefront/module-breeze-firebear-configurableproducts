@@ -233,38 +233,38 @@ define([
          * @param {jQuery} context
          * @param {Boolean} isInProductView
          */
-        updateBaseImage: function (images, context, isInProductView) {
-            var justAnImage = images[0],
-                initialImages = this.options.mediaGalleryInitial,
-                imagesToUpdate,
-                imageObj = this,
-                isInitial;
+        // updateBaseImage: function (images, context, isInProductView) {
+        //     var justAnImage = images[0],
+        //         initialImages = this.options.mediaGalleryInitial,
+        //         imagesToUpdate,
+        //         imageObj = this,
+        //         isInitial;
 
-            if (isInProductView) {
-                imagesToUpdate = images.length ? this._setImageType($.extend(true, [], images)) : [];
-                isInitial = _.isEqual(imagesToUpdate, initialImages);
-                var interval = window.setInterval(function () {
-                    imagesToUpdate = images.length ? imageObj._setImageType($.extend(true, [], images)) : [];
-                    isInitial = _.isEqual(imagesToUpdate, initialImages);
-                    var gallery = context.find(imageObj.options.mediaGallerySelector).data('gallery');
-                    if (gallery) {
-                        gallery.updateData(imagesToUpdate);
-                        // if (isInitial) {
-                        //     $(imageObj.options.mediaGallerySelector).AddFotoramaVideoEvents(); // Breeze fix: commented AddFotoramaVideoEvents calls
-                        // } else {
-                        //     $(imageObj.options.mediaGallerySelector).AddFotoramaVideoEvents({
-                        //         selectedOption: imageObj.getProduct(),
-                        //         dataMergeStrategy: imageObj.options.gallerySwitchStrategy
-                        //     });
-                        // }
-                        clearInterval(interval);
-                        gallery.first();
-                    }
-                }, 200);
-            } else if (justAnImage && justAnImage.img) {
-                context.find('.product-image-photo').attr('src', justAnImage.img);
-            }
-        },
+        //     if (isInProductView) {
+        //         imagesToUpdate = images.length ? this._setImageType($.extend(true, [], images)) : [];
+        //         isInitial = _.isEqual(imagesToUpdate, initialImages);
+        //         var interval = window.setInterval(function () {
+        //             imagesToUpdate = images.length ? imageObj._setImageType($.extend(true, [], images)) : [];
+        //             isInitial = _.isEqual(imagesToUpdate, initialImages);
+        //             var gallery = context.find(imageObj.options.mediaGallerySelector).data('gallery');
+        //             if (gallery) {
+        //                 gallery.updateData(imagesToUpdate);
+        //                 // if (isInitial) {
+        //                 //     $(imageObj.options.mediaGallerySelector).AddFotoramaVideoEvents(); // Breeze fix: commented AddFotoramaVideoEvents calls
+        //                 // } else {
+        //                 //     $(imageObj.options.mediaGallerySelector).AddFotoramaVideoEvents({
+        //                 //         selectedOption: imageObj.getProduct(),
+        //                 //         dataMergeStrategy: imageObj.options.gallerySwitchStrategy
+        //                 //     });
+        //                 // }
+        //                 clearInterval(interval);
+        //                 gallery.first();
+        //             }
+        //         }, 200);
+        //     } else if (justAnImage && justAnImage.img) {
+        //         context.find('.product-image-photo').attr('src', justAnImage.img);
+        //     }
+        // },
 
         /**
          * Event for swatch options
