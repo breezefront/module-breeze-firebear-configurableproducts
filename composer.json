@@ -2,7 +2,7 @@
     "name": "swissup/module-breeze-firebear-configurableproducts",
     "description": "Firebear Improved Configurable Products Breeze Frontend Integration",
     "type": "magento2-module",
-    "version": "1.0.5",
+    "version": "1.0.4",
     "license": "MIT",
     "require": {
         "swissup/module-breeze": "^2.19.6"
